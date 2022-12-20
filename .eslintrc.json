@@ -1,0 +1,23 @@
+{
+    "extends": ["plugin:adonis/typescriptApp", "prettier"],
+    "plugins": ["prettier"],
+    "rules": {
+      "prettier/prettier": ["error"],
+      "@typescript-eslint/no-explicit-any": 2,
+      "@typescript-eslint/explicit-function-return-type": "off"
+    },
+    "overrides": [
+      {
+        // enable the rule specifically for TypeScript files
+        "files": ["app/**/*.ts"],
+        "rules": {
+          "@typescript-eslint/explicit-function-return-type": "error"
+        }
+      }
+    ],
+    "parserOptions": {
+      "project": "tsconfig.json",
+      "tsconfigRootDir": "./",
+      "sourceType": "module"
+    }
+  } 
