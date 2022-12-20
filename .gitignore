@@ -123,3 +123,4 @@ dist
 Thumbs.db
 tmp
 node_modules
+.env
