@@ -10,7 +10,8 @@ export default class CidadesController {
     constructor() {
         this._cidadeRepository = new CidadeRepository()
     }
-    public async store({ request, response, auth }: HttpContextContract) {
+
+    public async store({ auth, request, response }: HttpContextContract) {
         
         /*
         const body = request.body()

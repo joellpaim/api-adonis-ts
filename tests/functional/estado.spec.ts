@@ -9,7 +9,9 @@ test.group('Estado', () => {
   })
 
   test('Buscar todos os estados', async ({ client }) => {
-    const response = await client.get('/api/estados').basicAuth('joellpaim', '123456')
+    const response = await client
+      .get('/api/estados?pageNumber=1&pageSize=2&sortDirection=asc&sortColumn=nom_estado')
+      .basicAuth('joellpaim', '123456')
 
     response.assertStatus(200)
   })

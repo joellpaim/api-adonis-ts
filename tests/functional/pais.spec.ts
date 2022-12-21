@@ -9,7 +9,9 @@ test.group('Pais', () => {
   })
 
   test('Buscar todos os paises', async ({ client }) => {
-    const response = await client.get('/api/paises').basicAuth('joellpaim', '123456')
+    const response = await client
+      .get('/api/paises?pageNumber=1&pageSize=2&sortDirection=asc&sortColumn=nom_pais')
+      .basicAuth('joellpaim', '123456')
 
     response.assertStatus(200)
   })
