@@ -72,7 +72,7 @@ export default class CidadesController {
         return response.status(200).send(await Cidade.findOrFail(params.id_cidade))
     }
 
-    public async destroy({request, response}: HttpContextContract) {
+    public async destroy({auth, response, params}: HttpContextContract) {
         /*
         const cidade = await Cidade.findOrFail(params.id_cidade)
 
@@ -83,9 +83,9 @@ export default class CidadesController {
             data: cidade,
         }
         */
+        await auth.authenticate()
 
-        const payload = await request.validate(CidadeValidator)
-        const cidade = await Cidade.findByOrFail('nom_cidade', payload.nom_cidade)
+        const cidade = await Cidade.findOrFail(params.id_cidade)
         
         return response.status(200).send({ id: await this._cidadeRepository.destroy(cidade.id_cidade) })
     }

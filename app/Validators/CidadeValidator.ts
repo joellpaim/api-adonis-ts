@@ -5,7 +5,7 @@ export default class CidadeValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    id_cidade: schema.number(),
+    id_cidade: schema.number.optional(),
     nom_cidade: schema.string({}, [
       rules.trim(), // Remove spaces em ambos os lados da string
       rules.required(),

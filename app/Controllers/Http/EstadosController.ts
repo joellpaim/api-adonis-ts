@@ -2,7 +2,10 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Estado from 'App/Models/Estado'
 
 export default class EstadosController {
-    public async store({ request, response }: HttpContextContract) {
+    public async store({ auth, request, response }: HttpContextContract) {
+
+        await auth.authenticate()
+
         const body = request.body()
  
         const estado =  await Estado.create(body)
@@ -15,7 +18,10 @@ export default class EstadosController {
         }
     }
 
-    public async index() {
+    public async index({ auth }: HttpContextContract) {
+
+        await auth.authenticate()
+
         const estados = await Estado.all()
 
         return {
@@ -23,7 +29,10 @@ export default class EstadosController {
         }
     }
 
-    public async show({params}: HttpContextContract) {
+    public async show({ auth, params }: HttpContextContract) {
+
+        await auth.authenticate()
+
         const estado = await Estado.findOrFail(params.id_estado)
 
         return {
@@ -31,7 +40,10 @@ export default class EstadosController {
         }
     }
 
-    public async destroy({params}: HttpContextContract) {
+    public async destroy({ auth, params }: HttpContextContract) {
+
+        await auth.authenticate()
+
         const estado = await Estado.findOrFail(params.id_estado)
 
         await estado.delete()
@@ -42,7 +54,9 @@ export default class EstadosController {
         }
     }
 
-    public async update ({params, request}: HttpContextContract) {
+    public async update ({ auth, params, request }: HttpContextContract) {
+        
+        await auth.authenticate()
 
         const body = request.body()
 

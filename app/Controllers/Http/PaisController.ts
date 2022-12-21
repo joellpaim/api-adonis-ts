@@ -2,9 +2,9 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Pais from 'App/Models/Pais'
 
 export default class PaisController {
-    public async store({ request, response }: HttpContextContract) {
+    public async store({ auth, request, response }: HttpContextContract) {
         
-      
+        await auth.authenticate()
        
         const body = request.body()
 
@@ -15,12 +15,13 @@ export default class PaisController {
         return {
         message: `Pais criado com sucesso`,
         data: pais,
-        }
-             
+        }        
         
     }
 
-    public async index({request}: HttpContextContract) {
+    public async index({ auth, request }: HttpContextContract) {
+
+        await auth.authenticate()
         
         const username = request.only(['username'])
         const password = request.only(['password'])
@@ -35,7 +36,10 @@ export default class PaisController {
         }
     }
 
-    public async show({params}: HttpContextContract) {
+    public async show({ auth, params }: HttpContextContract) {
+
+        await auth.authenticate()
+
         const pais = await Pais.findOrFail(params.id_pais)
 
         return {
@@ -43,7 +47,10 @@ export default class PaisController {
         }
     }
 
-    public async destroy({params}: HttpContextContract) {
+    public async destroy({ auth, params }: HttpContextContract) {
+
+        await auth.authenticate()
+
         const pais = await Pais.findOrFail(params.id_pais)
 
         await pais.delete()
@@ -54,7 +61,9 @@ export default class PaisController {
         }
     }
 
-    public async update ({params, request}: HttpContextContract) {
+    public async update ({ auth, params, request }: HttpContextContract) {
+
+        await auth.authenticate()
 
         const body = request.body()
 
