@@ -1,18 +1,18 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { CustomMessages, rules, schema } from '@ioc:Adonis/Core/Validator'
-import Cidade from 'App/Models/Cidade'
+import Estado from 'App/Models/Estado'
 
-export default class CidadeIndexValidator {
+export default class EstadoIndexValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public refs = schema.refs({
-    props: Cidade.$hasColumn(this.ctx.request.only(['sortColumn']).sortColumn)
+    props: Estado.$hasColumn(this.ctx.request.only(['sortColumn']).sortColumn)
       ? this.ctx.request.only(['sortColumn']).sortColumn
       : '',
   })
 
   public schema = schema.create({
-    nom_cidade: schema.string.optional(),
+    nom_estado: schema.string.optional(),
     pageNumber: schema.number([rules.unsigned(), rules.range(1, 1000)]),
     pageSize: schema.number(),
     sortColumn: schema.string([rules.equalTo(this.refs.props)]),

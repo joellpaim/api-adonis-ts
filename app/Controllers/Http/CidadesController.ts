@@ -1,4 +1,4 @@
-import IndexValidator, { CidadeIndexDTO } from 'App/Models/DTO/CidadeIndexDTO';
+import CidadeIndexValidator, { CidadeIndexDTO } from 'App/Models/DTO/CidadeIndexDTO';
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Cidade from 'App/Models/Cidade'
 import CidadeRepository from 'App/Repository/CidadeRepository'
@@ -35,11 +35,10 @@ export default class CidadesController {
     }
 
     public async index({ request, response, auth }: HttpContextContract) {
-        // Fazer service fora do controller
 
         await auth.authenticate()
 
-        const payload: CidadeIndexDTO = await Object.assign(request.validate(IndexValidator))
+        const payload: CidadeIndexDTO = await Object.assign(request.validate(CidadeIndexValidator))
         let resp = await this._cidadeRepository.index(payload)
         return resp.length > 0 ? response.status(200).send(resp) : response.status(204)
         /*
@@ -56,6 +55,7 @@ export default class CidadesController {
     }
 
     public async show({auth, params, response}: HttpContextContract) {
+        
         /*
         const cidade = await Cidade.findOrFail(params.id_cidade)
         const estado = await Estado.findOrFail(cidade.id_estado)
@@ -65,7 +65,8 @@ export default class CidadesController {
 
         return {
             data: info,
-        } */
+        } 
+        */
 
         await auth.authenticate()
 
