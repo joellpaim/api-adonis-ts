@@ -8,6 +8,12 @@ test.group('Cidades', () => {
     response.assertStatus(401)
   })
 
+  test('Buscar todas as cidades sem paginação', async ({ client }) => {
+    const response = await client.get('/api/cidades').basicAuth('joellpaim', '123456')
+
+    response.assertStatus(422)
+  })
+
   test('Buscar todas as cidades', async ({ client }) => {
     const response = await client
       .get('/api/cidades?pageNumber=1&pageSize=2&sortDirection=asc&sortColumn=nom_cidade')
